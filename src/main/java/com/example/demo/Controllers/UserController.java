@@ -1,4 +1,4 @@
-package com.example.demo.dao;
+package com.example.demo.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.User;
+import com.example.demo.dao.repo;
 
 @RestController
 public class UserController {

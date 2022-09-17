@@ -1,12 +1,8 @@
-package com.example.demo.dao;
+package com.example.demo.Controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
-import org.apache.tomcat.util.json.JSONParser;
-import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Models.History;
 import com.example.demo.Models.Task;
 import com.example.demo.Models.TaskHistoryModel;
-import com.example.demo.Models.User;
+import com.example.demo.dao.HDAO;
+import com.example.demo.dao.HistoryRepo;
+import com.example.demo.dao.TaskRepo;
+import com.example.demo.dao.repo;
 
 import lombok.Data;
 @Data
@@ -46,20 +45,25 @@ public class TaskController {
 		t.setAssignedTo(objs.findbyid(e.getAssignedTo()));
 		t.setCreatedBy(objs.findbyid(e.getCreatedBy()));
 		t.setId(obj.count()+1);
+		
 		History history = new History();
 		history.setId(Hrepo.count());
 		Date d = new Date();
 		history.setCreatedAt(d);
 		history.setLastUpdated(d);
+		
 		TaskHistoryModel tm = new TaskHistoryModel();
 		tm.setReason("Task Created");
 		tm.setTask(t);
+		
 		List<TaskHistoryModel> thm = new ArrayList<>();
 		thm.add(tm);
+		
 		history.setTaskHistory(thm);
 		t = obj.save(t);
 		history.setTaskid(t.getId());
 		Hrepo.save(history);
+		
 		return t;
 	}
 	
